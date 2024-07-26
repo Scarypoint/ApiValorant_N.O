@@ -1,6 +1,7 @@
 package com.beta.valorantapi.com
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonDefaults.buttonColors
@@ -122,7 +124,7 @@ fun WeaponItem(weapon: Weapons) {
         fontFamily = FontFamily.Monospace,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
-        color = Color.White
+        color = Color.Yellow
     )
 
     Column(
@@ -133,17 +135,25 @@ fun WeaponItem(weapon: Weapons) {
             text = weapon.displayName,
             style = customTextStyle
         )
-        AsyncImage(
-            model = weapon.displayIcon,
-            contentDescription = null,
-            modifier = Modifier.size(150.dp)
-        )
+        Box(
+            modifier = Modifier
+                .size(150.dp)
+                .background(Color.LightGray, shape = RoundedCornerShape(5.dp))
+                .padding(16.dp)
+        ) {
+            AsyncImage(
+                model = weapon.displayIcon,
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
         Text(
             text = weapon.category,
             style = customTextStyle
         )
     }
 }
+
 @Composable
 fun WeaponScreen(valorantViewModel: ValorantViewModel = viewModel()) {
     val weaponList by valorantViewModel.weaponsList.collectAsState()
